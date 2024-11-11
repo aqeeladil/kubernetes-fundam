@@ -1,4 +1,4 @@
-# Kubernetes.
+# Introduction to Kubernetes
 
 **Kubernetes is the key player in DevOps**.
 
@@ -23,22 +23,22 @@ manage and automate complex containerized applications at scale.
 
 ## Problem with Containers/Docker.
 
-**problem 1: Single Host**
+**Problem 1: Single Host**
 - Containers are ephemeral in nature (short life) (can die & revive anytime).
 - Because of single host nature of docker, a container can impact other containers. e.g. extra 
 memory usage by a container can result in end-life for an other container.
 
-**problem 2: No Auto-healing**
+**Problem 2: No Auto-healing**
 - if a container get impacted/killed, the application running inside will be inaccesible, and 
 you manually need to restart it again. 
 - Here kubernetes comes up with the concept of auto-healing (a container automatically get 
 started without any manual intervention).
 
-**problem 3: No Auto-scaling**
+**Problem 3: No Auto-scaling**
 - On Docker, you need to manually increase the container count and setup the load-balancer if 
 there is increased incoming traffic on the application.
 
-**problem 3: No Enterprise Support**
+**Problem 4: No Enterprise Support**
 - Docker doesn't provide any Enterprise level application support (load-balancer, firewall, 
 auto-heealing, auto-scaling, API-gateways). 
 - Docker is excellent for packaging and running containers, it lacks features required for 
@@ -184,7 +184,6 @@ In Kubernetes, YAML (YAML Ain't Markup Language) files are used extensively for 
   4. **Complex Data Structuring:** Handles nested configurations well, enabling clear resource   definitions.
   5. **Less Verbose than JSON:** More concise, reducing file size and making it easier to manage.
   6. **Version Control Friendly:** Line-based format works well with Git for tracking and reviewing   changes.
-<br>
 
 ## KubeCTL
 
@@ -261,5 +260,32 @@ With Kubeshark, you can:
 - **Record traffic for offline analysis:** Store and review traffic from past periods, which is useful for auditing, compliance, or detailed post-incident analysis.
 
 
+## How uers, groups or service-accounts are created in Kubernetes?
+
+In Kubernetes, users, groups, and service accounts are treated differently, and each has its own creation and management methods:
+
+1. **Users:**
+
+- Kubernetes doesn’t manage users directly; it relies on external systems for user authentication, such as certificates, OAuth providers (e.g., Google, GitHub), or identity providers (e.g., LDAP).
+- Typically, you manage users by creating client certificates or using an Identity Provider (IDP) integrated with Kubernetes.
+- Identity Providers (IDP) are used for enterprise setups where user management is centralized.
+
+2. **Groups:**
+
+- Groups in Kubernetes are not explicitly created in the cluster.
+- Groups are typically defined within the identity provider or set during the client certificate creation using the O (organization) field in the subject.
+- When using an IDP, groups can be assigned at the IDP level, and users are placed into groups based on roles defined in the provider.
+
+3. **Service Accounts:**
+
+- Service accounts are Kubernetes-native accounts designed for workloads running within the cluster (like pods).
+- Service accounts are managed directly by Kubernetes, and they are created within specific namespaces.
+- By default, each namespace has a default service account, but you can create additional service accounts as needed.
+
+Creating a Service Account
+```bash
+kubectl create serviceaccount <service-account-name> -n <namespace>
+```
+Once created, service accounts are assigned to pods in your deployment or pod spec, allowing the pods to authenticate with the Kubernetes API.
 
 
