@@ -169,7 +169,8 @@ spec:
 ```
 2. **Create the Controller Logic:**
 - In the controller, define the logic for managing ```MyResource``` instances.
-- In Python, you can use the Kubernetes Python client to write your controller. In Go, kubebuilder provides a structured framework to set up the reconciliation loop and event handlers.
+- In Python, you can use the Kubernetes Python client to write your controller. In Go, ```kubebuilder``` provides a 
+structured framework to set up the reconciliation loop and event handlers.
 ```python 
 from kubernetes import client, config, watch
 
@@ -197,7 +198,7 @@ def watch_custom_resources():
 
 watch_custom_resources()
 ```
-### Deploy the Custom Controller
+3. **Deploy the Custom Controller:**
 Package the controller code into a container, push it to a registry, and deploy it in your Kubernetes cluster as a 
 Deployment.
 ```yaml 
@@ -219,6 +220,7 @@ spec:
       - name: controller
         image: mycontrollerimage:latest
 ```
+
 
 You can also refer to : https://github.com/kubernetes/sample-controller
 

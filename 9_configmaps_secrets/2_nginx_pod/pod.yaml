@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-app
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/nginx/conf.d/app-config
+      readOnly: true
+    - name: secret-volume
+      mountPath: /etc/nginx/conf.d/app-secret
+      readOnly: true
+    env:
+    - name: APP_NAME
+      valueFrom:
+        configMapKeyRef:
+          name: app-config
+          key: app_name
+    - name: LOG_LEVEL
+      valueFrom:
+        configMapKeyRef:
+          name: app-config
+          key: log_level
+    - name: USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: app-secret
+          key: username
+    - name: PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: app-secret
+          key: password
+    volumes:
+    - name: config-volume
+      configMap:
+        name: app-config
+    - name: secret-volume
+      secret:
+        secretName: app-secret
