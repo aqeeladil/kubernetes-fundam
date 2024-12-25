@@ -99,7 +99,7 @@ rules:
 - level: Metadata
 ```
 5. **Keep the API server up to date:**
-- Make sure to keep the Kubernetes API server up to date with the latest security patches and updates by regularly checking for updates and applying them as needed.
+  - Make sure to keep the Kubernetes API server up to date with the latest security patches and updates by regularly checking for updates and applying them as needed.
 
 ## 2. RBAC
 - Use Role-Based Access Control to define who can access which resource in kubernetes. For example, not everyone should have access to kubernetes secrets.
@@ -188,8 +188,6 @@ data:
 - Use tools like Sysdig for runtime monitoring.
   - Monitor for suspicious activities, such as containers running as root or accessing sensitive files (e.g., `/etc/shadow`).
   - Employ behavior analysis tools like Falco to monitor and detect unusual container or host activities.
-
-![Screenshot 2023-03-05 at 8 16 52 PM](https://user-images.githubusercontent.com/43399466/222967569-8b05f3e3-ead6-4943-b6ce-3db3af242a5a.png)
 
 ## 7. Upgrades
 - Older versions may contain vulnerabilities fixed in newer releases.
